@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Filter Test</title>
+</head>
+<body>
+    <h1>Simple Filter Test</h1>
+    
+    <select id="testFilter">
+        <option value="">All</option>
+    </select>
+    
+    <div id="results"></div>
+    <div id="debug"></div>
+    
+    <script>
+        const testData = [
+            { name: "Course 1", term: "2021-2023", type: "Continuous" },
+            { name: "Course 2", term: "2021-2023", type: "Continuous" },
+            { name: "Course 3", term: "2024-2025", type: "Range" }
+        ];
+        
+        const filter = document.getElementById('testFilter');
+        const results = document.getElementById('results');
+        const debug = document.getElementById('debug');
+        
+        // Populate filter
+        const terms = [...new Set(testData.map(c => c.term))];
+        filter.innerHTML = '<option value="">All</option>' + 
+            terms.map(term => `<option value="${term}">${term}</option>`).join('');
+        
+        filter.addEventListener('change', function() {
+            const selectedTerm = this.value;
+            debug.innerHTML = `Selected: "${selectedTerm}"<br>`;
+            
+            const filtered = testData.filter(course => {
+                const matches = !selectedTerm || course.term === selectedTerm;
+                debug.innerHTML += `Course: ${course.name}, Term: "${course.term}", Matches: ${matches}<br>`;
+                return matches;
+            });
+            
+            results.innerHTML = `Found ${filtered.length} courses:<br>` + 
+                filtered.map(c => `- ${c.name} (${c.term})`).join('<br>');
+        });
+        
+        // Initial render
+        filter.dispatchEvent(new Event('change'));
+    </script>
+</body>
+</html>

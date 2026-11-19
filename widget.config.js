@@ -1,7 +1,7 @@
 module.exports = {
-  widgetName: "jsDev",
+  widgetName: "BuzzCourses",
   server: "$",
-  file: "jsDev",
+  file: "ACP Students_Sandbox",
   uploadScript: "UploadToHTML",
   reloadScript: "Load Widget",
   startDevScript: "Set to Dev Mode",

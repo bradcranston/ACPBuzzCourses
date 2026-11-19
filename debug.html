@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter Debug</title>
+</head>
+<body>
+    <h1>Filter Debug Test</h1>
+    <div id="courseInterface"></div>
+    
+    <script src="src/index.js"></script>
+    <script>
+      // Simple test data
+      const testData = {
+        value: [
+          {
+            courseid: "TEST-001",
+            title: "Test Course 1",
+            term: "2024-2025",
+            type: "Continuous", 
+            teacherFirst: "John",
+            teacherLast: "Doe",
+            teacherEmail: "john@test.com"
+          },
+          {
+            courseid: "TEST-002", 
+            title: "Test Course 2",
+            term: "2023-2024",
+            type: "Range",
+            teacherFirst: "Jane", 
+            teacherLast: "Smith",
+            teacherEmail: "jane@test.com"
+          }
+        ]
+      };
+      
+      // Load the test data
+      setTimeout(() => {
+        window.loadCourseData(testData);
+        console.log('Test data loaded, checking filter values...');
+        
+        setTimeout(() => {
+          const termFilter = document.getElementById('termFilter');
+          const typeFilter = document.getElementById('typeFilter'); 
+          const teacherFilter = document.getElementById('teacherFilter');
+          
+          console.log('Filter options:');
+          console.log('Terms:', Array.from(termFilter.options).map(o => o.value));
+          console.log('Types:', Array.from(typeFilter.options).map(o => o.value));
+          console.log('Teachers:', Array.from(teacherFilter.options).map(o => o.value));
+          
+          // Test filtering
+          console.log('Testing filter: selecting first term option...');
+          if (termFilter.options.length > 1) {
+            termFilter.value = termFilter.options[1].value;
+            termFilter.dispatchEvent(new Event('change'));
+          }
+        }, 500);
+      }, 100);
+    </script>
+</body>
+</html>
